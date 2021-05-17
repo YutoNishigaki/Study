@@ -10,9 +10,9 @@
 2. コミットとは
    変更を保存する動作
 3. ブランチとは
-   　　　　　D---F Ver1/Branch
-    　　　　／
-    A---B---C---E Main/Trunk
+   　　　　　D---F Ver1/Branch  
+    　　　　／  
+    A---B---C---E Main/Trunk  
 ---
 #### 特徴
 1. 分散リポジトリ
@@ -67,8 +67,54 @@ e9064b9 Update README.md
     3. .git/config
 ※20章で優先度について解説
 ## 第４章 リポジトリ
-1. 
-    1. 
+1. リポジトリの作成
+   ~~~
+   $ git init
+    Initialized empty Git repository in (パス)
+   ~~~
+   - サーバが起動されない
+   - リポジトリはローカルである
+  ローカルフォルダの中にgitリポジトリ（作業ディレクトリ）を追加している
+2. リポジトリの状態を確認
+   ~~~
+   $ git status
+    On branch master
+    No commits yet
+   ~~~ 
+3. ファイルをリポジトリに追加する
+   ~~~
+   $ git add filefixup.bat
+   $ git status
+    Changes to be committed:
+    new file:   filefixup.bat
+   ~~~
+   新しいファイルが存在すること。  
+   コミットが出来ること。
+4. ファイルをコミットする
+   ~~~
+   $ git commit -m "This is the first commit message"
+    [master (root-commit) d36c164] This is the first commit message
+    1 file changed, 1 insertion(+)
+    create mode 100644 filefixup.bat
+   ~~~
+   コミットをすることでファイルのヒストリーが記録されるようになる。
+5. リポジトリを調べる
+   ~~~
+   $ git log
+    commit d36c1645225c32f5dabde0ad58dfee8a9a4f18fa (HEAD -> master)
+    This is the first commit message
+   ~~~
+   --statスイッチを付加することで構成ファイルが参照できる
+   ~~~
+   $ git log --stat
+    commit d36c1645225c32f5dabde0ad58dfee8a9a4f18fa (HEAD -> master)
+    This is the first commit message
+   ~~~
+   ~~~
+    filefixup.bat | 1 +
+    1 file changed, 1 insertion(+)
+   ~~~
+6. 
 ## 第５章 GitGui
 1. 
     1. 
