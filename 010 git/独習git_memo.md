@@ -188,8 +188,82 @@ e9064b9 Update README.md
     ~~~
 
 ## 第７章 変更箇所をコミット
-1. 
-    1. 
+1. ステージングエリアの活用
+    1. ファイルを追加　git add
+    2. ファイルを削除　git rm
+    3. ファイル名の変更　git mv
+    4. 変更の取消　git reset
+    5. 特定ファイルのみコミットしない（テストファイル等）
+2. ファイルの削除
+    ~~~
+    $ rm a
+    $ git status
+    deleted:    a
+    ~~~
+    これではファイル削除の変更がステージングエリアに残らない。
+    ~~~
+    $ git rm a
+    $ git status
+    Changes to be committed:
+        deleted:    a
+    ~~~
+    これであればファイル削除がステージングエリアに残る。
+    ~~~
+    $ git commit -m "removed a and b"
+     delete mode 100644 a
+     delete mode 100644 b
+    ~~~
+3. ファイル名の変更
+    ~~~
+    $ mv c renamed_file
+    $ git status
+    Changes not staged for commit:
+        deleted:    c
+    Untracked files:
+        renamed_file
+    ~~~
+    ファイル削除、新規ファイル追加の２処理として認識されてしまう。
+    ~~~
+    $ git rm c
+    $ git add renamed_file
+    $ git status
+        Changes to be committed:
+        renamed:    c -> renamed_file
+    ~~~
+    ~~~
+    $ git mv d another_rename
+    $ git status
+        renamed:    c -> another_rename
+        renamed:    d -> renamed_file
+    ~~~
+    ファイル操作をリネームとして記録することが出来る。
+4. ファイルをコミットするべきタイミング
+   リポジトリにコミットを行ったタイミングは、「取り戻すことが出来る成果」となる。
+   1. ファイルを追加 or 削除
+   2. ファイル名を変更
+   3. ファイルを適切な状態まで変更したとき
+   4. しばらくタスクから離れるとき
+   5. 修正に不安なコードを適用するとき
+5. コミット行をハンドピックする
+   コミットはしたくないが、作業ディレクトリには残しておきたいようなコードなどに有効（デバッグ文等）
+   1. GitGuiでなんとかする
+    変更行を選択して右クリック「stage line for commit」でステージングエリアに配置したい行のみを選択→コミット
+   2. Cuiでなんとかする
+   ~~~
+    $ git add -p
+     -- ファイルの変更 --
+    (1/1) Stage this hunk [y,n,q,a,d,e,?]? e
+     -- 指定のエディタでコミットしたくない行の削除 --
+   ~~~
+6. ステージングエリアから変更を削除する
+    ~~~
+    $ git reset math.sh
+    ~~~
+7. ファイルを最後にコミットしたバージョンに戻す
+   ワークエリアを直近のコミットの状態にする
+    ~~~
+    $ git checkout math.sh
+    ~~~
 ## 第８章 Gitタイムマシン
 1. 
     1. 
