@@ -265,8 +265,55 @@ e9064b9 Update README.md
     $ git checkout math.sh
     ~~~
 ## 第８章 Gitタイムマシン
-1. 
-    1. 
+1. SHA1 ID
+    コミット毎にSHA1 IDハッシュキーが設定されている。
+2. 特定ファイルのログのみ参照
+    ~~~
+    $ git log --oneline math.sh
+    ~~~
+3. 最適なコミットメッセージを記載する
+    ヘルプページには、50文字未満の1行で変更を要約し（ログに表示されるタイトル）、その次に1行空けてさらに詳細な記述を入れることが良いとされている。
+    git log --oneline でタイトルをみれて、git logで詳細な変更がみれる。
+4. 直近のコミットメッセージを修正する
+    ~~~
+    $ git commit --amend
+    ~~~
+5. 現在のリポジトリの状態を判断する
+    コミットが前後コミットの状態をポインタで持っており、そのポインタで繋がれた履歴がブランチ。
+    開発履歴全体を「master」ブランチと呼ぶ。
+    「master」は同時に最後のコミットに向かうポインタも表す。「現在位置」=「master」
+    現在のブランチ位置は「HEAD」と呼ぶ。
+    ~~~
+    $ git rev-parse HEAD
+    　97bd2341b220b6d517ba20e1d1b5bb5337a9147a
+    $ git rev-parse master
+    　97bd2341b220b6d517ba20e1d1b5bb5337a9147a
+    ~~~
+    rev-parseは指定ブランチのハッシュキーを取得
+6. 過去のリポジトリを現在参照リポジトリに変更
+    ~~~
+    $ git log --oneline
+      <HASH KEY> Adding printf.
+    $ git checkout <HASH KEY>
+    ~~~
+    ~~~
+    $ git log --oneline
+        3d14365 (HEAD) adding four empty files.
+        b19e2f0 adding b variable.
+    ~~~
+    masterブランチが表示されていないのは、履歴から過去に戻っているから。
+    ~~~
+    $ git checkout master
+    ~~~
+    最新のコミットブランチに戻る（現在に戻る）
+7. 過去のコミットにタグをつける
+   ハッシュキーではなく、任意で付けたタグ名で参照（チェックアウト）出来るようになる。
+    ~~~
+    $ git tag <tag_name> -m "コメント" <HASH KEY>
+    $ git tag
+    four_file_galore
+    ~~~
+    git tag で設定したタグの確認ができる
 ## 第９章 ブランチ
 1. 
     1. 
