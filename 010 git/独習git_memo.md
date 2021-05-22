@@ -114,13 +114,79 @@ e9064b9 Update README.md
     filefixup.bat | 1 +
     1 file changed, 1 insertion(+)
    ~~~
-6. 
 ## 第５章 GitGui
-1. 
-    1. 
+1. GUIでgitを使用する
+    1. 概要
+   Git GUIは公式でありWin、Mac、Linux全てで使用できる。
+    2. 起動
+   ~~~
+    $ git gui
+   ~~~
+    3. GUIでのログを出力
+   Repository -> visualize master's History   
+    4. コミット前の同ファイルへのステージング
+   ステージングファイルの内容は上書きされて、1つ目の変更は消えてしまう。
 ## 第６章 ファイルの追跡と更新
-1. 
-    1. 
+1. コマンドライン
+    1. ファイルに一行追加
+    ~~~
+    $ echo "追記内容" >> math.sh
+    ~~~
+    2. ファイル内容確認
+    ~~~
+    $ cat math.sh
+    ~~~
+2. リポジトリの変更内容を確認する
+    ~~~
+    $ git diff
+    --- a/math.sh
+    +++ b/math.sh
+    @@ -1 +1,2 @@
+     # Comment
+    +a=1
+    ~~~
+    比較ファイル、先頭(+)が追加された行を表す
+3. コミット前のステージングエリアでの変更
+    ~~~
+    $ git status
+    On branch master
+    Changes to be committed:
+        modified:   math.sh
+    Changes not staged for commit:
+        modified:   math.sh
+    ~~~
+    既に一度addでステージングエリアに変更を反映している。そのファイルに対して、さらに修正。コミットする内容は幾度も修正可能。
+    ~~~
+    $ git diff
+    --- a/math.sh
+    +++ b/math.sh
+     # Comment
+     a=1
+    -echo $a
+     b=2
+    ~~~
+    これは作業ディレクトリとステージングエリアの差分が比較されている。
+    ~~~
+    $ git diff --staged
+    --- a/math.sh
+    +++ b/math.sh
+    @@ -1,2 +1,4 @@
+     # Comment
+     a=1
+    +echo $a
+    +b=2
+    ~~~
+    --stagedスイッチをつけることでステージングエリアとリポジトリの差分を表示する。
+4. 動作をした場合の結果を事前に確認する
+    dry-run（予行演習）※短縮形 -n
+    ~~~
+    git add --dry-run .
+    add 'a'
+    add 'b'
+    add 'c'
+    add 'd'
+    ~~~
+
 ## 第７章 変更箇所をコミット
 1. 
     1. 
