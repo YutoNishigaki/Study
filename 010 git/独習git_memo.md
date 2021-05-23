@@ -315,8 +315,70 @@ e9064b9 Update README.md
     ~~~
     git tag で設定したタグの確認ができる
 ## 第９章 ブランチ
-1. 
-    1. 
+1. ブランチを分けて作成する
+    ~~~
+    $ git branch dev
+    $ git branch
+        dev
+      * master
+    ~~~
+    *がついているブランチが現在利用しているブランチ。これはブランチを作成時点でのリポジトリのコピーがdevとして作成されたことを表す。
+    ~~~
+    $ git checkout dev
+    Switched to branch 'dev'
+    $ git branch
+      * dev
+        master
+    ~~~
+    ブランチを切替した。
+    ~~~
+    $ git branch -d dev 
+    Deleted branch dev (was 9aae6da).
+    ~~~
+    ブランチを削除した。
+2. ブランチを作るときの考え方
+   マスターブランチは「使えるコード」としておく。
+   クリーンビルド、デプロイ可能な状態。
+   ブランチはマスターから分けて、動作を確認したうえで、マスターブランチに反映する開発の進め方が好ましい。
+3. Gitコマンドを別名として保存する
+    ~~~
+    $ git config --global alias.lol "log --graph --decorate --pretty=oneline --all --abbrev-commit"
+    ~~~
+　　多くのスイッチをつけたコマンドを別名で実行出来る設定
+
+    $ git lol
+
+4. ブランチ毎の最新コミットを表示する
+    ~~~
+    $ git branch -v
+        master      97bd234 Adding printf.
+      * new_feature f741e04 starting a second new file
+    ~~~
+
+5. ある時点のリポジトリでブランチを切替
+    ~~~
+    $ git branch fixing_readme <SHA1 HASHKEY>
+    $ git checkout fixing_readme 
+    Switched to branch 'fixing_readme'
+    ~~~
+6. 現在の変更をスタッシュする
+ブランチの切替を途中で行ったら、現在までの仕事が失われてしまうため、git stashで一時退避する。
+    ~~~
+    $ git stash
+    Saved working directory and index state WIP on new_feature: f741e04 starting a second new file
+    ~~~
+
+作業中の状態でハッシュが作成され、masterをチェックアウトすることができる。
+~~~
+    $ git stash list
+    stash@{0}: WIP on new_feature: f741e04 starting a second new file
+~~~
+スタッシュとした作業のリストを表示する。
+~~~
+    $ git stash pop
+~~~
+作業中のリポジトリの状態を取り戻す。
+ステージングエリアの状態を。
 ## 第１０章 ブランチをマージ
 1. 
     1. 
